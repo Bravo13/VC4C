@@ -4,15 +4,15 @@ jobs:
     docker:
       - image: nomaddo/native
     steps:
-      - checkout
       - run: apt-get update && apt-get install -y openssh-client git
+      - checkout
       - run: scripts/clang-format-diff.sh
   cross:
     docker:
       - image: doe300/cross-rpi:buster-llvm11
     steps:
-      - checkout
       - run: apt-get update && apt-get install -y openssh-client git
+      - checkout
       - run:
           name: download header
           command: git clone https://github.com/doe300/VC4CLStdLib.git VC4CLStdLib && cd VC4CLStdLib && cmake -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_NUMBER=$CIRCLE_BUILD_NUM . && make && sudo make install && cd ../
